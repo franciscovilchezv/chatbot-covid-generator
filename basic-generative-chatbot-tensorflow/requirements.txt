@@ -1,0 +1,7 @@
+#requirements.txt file 
+pandas
+numpy
+nltk
+tensorflow
+joblib
+streamlit
