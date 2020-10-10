@@ -1,3 +1,3 @@
-import chatbotGenerator.index as idx
+import chatbot_generator.index as idx
 
 idx.reply()
