@@ -1,0 +1,58 @@
+{"intents": [
+  {"tag": "greeting",
+   "patterns": ["Hi there", "How are you", "Is anyone there?", "Hello", "Good day"],
+   "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+   "context": [""]
+  },
+  {"tag": "goodbye",
+   "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
+   "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
+   "context": [""]
+  },
+  {"tag": "thanks",
+   "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+   "responses": ["Happy to help!", "Any time!", "My pleasure"],
+   "context": [""]
+  },
+  {"tag": "noanswer",
+   "patterns": [],
+   "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+   "context": [""]
+  },
+  {"tag": "options",
+   "patterns": ["How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
+   "responses": ["I can guide you through COVID information, recommendations and statistics", "Offering support for COVID information"],
+   "context": [""]
+  },
+  {"tag": "covid_information",
+   "patterns": ["What is COVID?", "Give me information about COVID", "Could you explain me what COVID is?"],
+   "responses": ["COVID-19 is an infectious disease caused by severte acute respiratory syndome coronaravirus 2"],
+   "context": [""]
+  },
+  {"tag": "covid_symptoms",
+   "patterns": ["What are COVID symptoms?"],
+   "responses": ["COVID-19 affects different people in different ways. Infected people have had a wide range of symptoms reported – from mild symptoms to severe illness."],
+   "context": [""]
+  },
+  {"tag": "covid_treatment",
+   "patterns": ["What can I take for COVID?", "What is COVID treatment?", "What medicine should I take for COVID?"],
+   "responses": ["There is no specific antiviral treatment recommended for COVID-19."],
+   "context": ["search_blood_pressure_by_patient_id"]
+  },
+  {"tag": "covid_prevention",
+   "patterns": ["How can I prevent COVID?", "What are some measures I can take against COVID?"],
+   "responses": ["Wear a mask, wash your hands and keep a safe distance are the best options for COVID prevention."],
+   "context": [""]
+  },
+  {"tag": "covid_metrics",
+   "patterns": ["Can you tell me the number of COVID cases?", "Give me COVID statistics" ],
+   "responses": ["Which country are you interesting in looking for the number of COVID cases?"],
+   "context": ["search_covid_metrics_by_country"]
+  },
+  {"tag": "search_covid_metrics_by_country",
+   "patterns": [],
+   "responses": ["Loading COVID metrics"],
+   "context": [""]
+  }
+]
+}
