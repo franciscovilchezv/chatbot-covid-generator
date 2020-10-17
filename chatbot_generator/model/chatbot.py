@@ -1,11 +1,14 @@
 import json
 import random
 
+import chatbot_generator.model.actor as actor
+
 import nltk
 from nltk.stem.lancaster import LancasterStemmer
 
 import numpy as np
 import pandas as pd
+import spacy
 
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Dropout, InputLayer
@@ -14,15 +17,25 @@ from tensorflow.keras.optimizers import SGD
 class Chatbot:
   stemmer = LancasterStemmer()
 
-  def __init__(self):
+  def __init__(self, lang='EN'):
     self.words = []
     self.classes = []
     self.documents = []
-    self.ignore_words = ['?']
+    self.ignore_words = ['?', '¿']
     self.intents = None
     self.model = None
+    self.context = ""
 
-    with open('chatbot_generator/dataset/covid_intents.json') as json_data:
+    if(lang == 'EN'):
+      self.nlp = spacy.load("en_core_web_sm")
+    elif (lang == 'ES'):
+      self.nlp = spacy.load("en_core_web_sm")
+    else:
+      raise Exception("Language %s not supported" % lang)
+
+    self.dataset = 'chatbot_generator/dataset/covid_intents_%s.json' % lang
+
+    with open(self.dataset) as json_data:
       self.intents = json.load(json_data)
 
       for intent in self.intents['intents']:
@@ -36,7 +49,6 @@ class Chatbot:
 
     self.words = sorted(list(set(self.words)))
     self.classes = sorted(list(set(self.classes)))
-
 
   def train_model(self):
     training = []
@@ -84,15 +96,36 @@ class Chatbot:
 
     return bag
 
-  def ask(self, question):
-    cleanquestion = self.clean_tokenize_sentence(question)
-    inputvar =  pd.DataFrame([self.bow_encode(cleanquestion)], dtype=float, index=['input'])
+  def predict_tag(self, question):
+    clean_question = self.clean_tokenize_sentence(question)
 
-    prediction_tag = self.classes[np.argmax(self.model.predict(inputvar))]
+    if (self.context != ""):
+      return self.context
+    else:
+      inputvar =  pd.DataFrame([self.bow_encode(clean_question)], dtype=float, index=['input'])
 
+      return self.classes[np.argmax(self.model.predict(inputvar))]
+
+  
+
+  def perform_response(self, prediction_tag, question):
     for intent in self.intents['intents']:
       if intent['tag'] == prediction_tag:
-        print("[%s]" % prediction_tag, random.choice(intent['responses']))
-        return 
+        self.context = random.choice(intent['context'])
+
+        print("[%s]{%s}" % (prediction_tag, self.context), random.choice(intent['responses']))
+        
+        action = intent['action']
+        if action:
+          actor.perform_action(action, question)
+
+        return
 
     raise Exception("No answer available for prediction: %s" % prediction_tag)
+
+  def ask(self, question):
+    prediction_tag = self.predict_tag(question)
+
+    self.perform_response(prediction_tag, question)
+
+    
