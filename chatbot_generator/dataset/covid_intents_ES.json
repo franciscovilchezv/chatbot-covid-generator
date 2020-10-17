@@ -1,0 +1,87 @@
+{"intents": [
+  {"tag": "greeting",
+   "patterns": ["Hola", "Habla", "¿Que tal?", "¿Cómo estás?", "Buenos días", "Buenas tardes", "Buenas noches"],
+   "responses": ["Hola!", "Bienvenido!", "Un gusto volver a hablar contigo"],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "goodbye",
+   "patterns": ["Chau", "Adiós", "Un gusto", "Nos vemos luego"],
+   "responses": ["Chau", "Hasta luego", "Adiós!"],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "thanks",
+   "patterns": ["Gracias", "Muchas gracias", "Gracias por tu ayuda"],
+   "responses": ["De nada!", "Fue un placer"],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "noanswer",
+   "patterns": [],
+   "responses": ["Disculpa, pero no entiendo tu pregunta"],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "options",
+   "patterns": ["¿Qué puedo hacer?", "¿Qué puedes hacer?", "¿Qué opciones tengo?", "¿Cuáles son las opciones?"],
+   "responses": ["Te puedo dar información sobre el COVID, recomendaciones y estadísticas."],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "covid_information",
+   "patterns": ["¿Qué es el COVID?", "Dame información sobre el COVID", "¿Puedes explicarme qué es el COVID?"],
+   "responses": ["El COVID-19 es una enfermedad infecciosa causada por el virus SARS-CoV-2."],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "covid_symptoms",
+   "patterns": ["¿Cuáles son los síntomas del COVID?"],
+   "responses": ["Produce síntomas similares a los de la gripe o catarro, entre los que se incluyen fiebre, tos, disnea, mialgia y fatiga."],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "covid_treatment",
+   "patterns": ["¿Qué puedo tomar contra el COVID?", "¿Cuál es el tratamiento contra el COVID?", "¿Qué medicina se usa contra el COVID?"],
+   "responses": ["No existe tratamiento específico; las medidas terapéuticas principales consisten en aliviar los síntomas y mantener las funciones vitales."],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "covid_prevention",
+   "patterns": ["¿Cómo puedo prevenir el COVID?", "¿Cómo me protego contra el COVID?", "¿Cuáles son las recomendaciones contra el COVID?"],
+   "responses": ["Usar mascarilla, lavado de manos y distanciamiento social son las principales recomendaciones para evitar el COVID."],
+   "context": [""],
+   "action": {}
+  },
+  {"tag": "covid_metrics",
+   "patterns": ["¿Puedes decirme el número de casos de COVID?", "Muéstrame las estadísticas de COVID" ],
+   "responses": ["¿De qué país quieres información sobre el número de casos?"],
+   "context": ["search_covid_metrics_by_country"],
+   "action": {}
+  },
+  {"tag": "covid_metrics_in_location",
+    "patterns": ["¿Puedes decirme el número de casos de COVID en?", "Muéstrame las estadísticas de COVID en", "¿Puedes decirme el número de casos de COVID de?", "Muéstrame las estadísticas de COVID de" ],
+    "responses": ["Cargando estadísticas de COVID de la ubicación solicitada..."],
+    "context": [""],
+    "action": {
+      "type": "REST",
+      "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
+      "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
+      "not_found_callback": "I am sorry, I have no information on the country: %s",
+      "error_callback": "There is an issue with the data source. You will have to try again later :("
+    }
+   },
+  {"tag": "search_covid_metrics_by_country",
+   "patterns": [],
+   "responses": ["Cargando estadísticas de COVID..."],
+   "context": [""],
+   "action": {
+     "type": "REST",
+     "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
+     "success_callback": "Mostrando estadísticas de COVID para el país %s actualizando el %s\nCasos de hoy: %s\nCasos en total: %s",
+     "not_found_callback": "Lo lamento, no tengo información para el país: %s",
+     "error_callback": "Hay un problema con la fuente de datos. Inténtalo más tarde :("
+   }
+  }
+]
+}
