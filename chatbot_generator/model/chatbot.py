@@ -26,12 +26,7 @@ class Chatbot:
     self.model = None
     self.context = ""
 
-    if(lang == 'EN'):
-      self.nlp = spacy.load("en_core_web_sm")
-    elif (lang == 'ES'):
-      self.nlp = spacy.load("en_core_web_sm")
-    else:
-      raise Exception("Language %s not supported" % lang)
+    self.nlp = spacy.load("en_core_web_sm")
 
     self.dataset = 'chatbot_generator/dataset/covid_intents_%s.json' % lang
 
@@ -116,6 +111,7 @@ class Chatbot:
         print("[%s]{%s}" % (prediction_tag, self.context), random.choice(intent['responses']))
         
         action = intent['action']
+
         if action:
           actor.perform_action(action, question)
 

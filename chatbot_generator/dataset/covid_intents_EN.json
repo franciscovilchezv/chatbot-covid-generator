@@ -59,6 +59,12 @@
    "context": ["search_covid_metrics_by_country"],
    "action": {}
   },
+  {"tag": "covid_hospitals",
+    "patterns": ["Can you tell me hospitals nearby?", "Show me the hospitals close to me" ],
+    "responses": ["Which country are you interesting in looking for the hospitals?"],
+    "context": ["search_covid_hospitals_by_country"],
+    "action": {}
+   },
   {"tag": "covid_metrics_in_location",
     "patterns": ["Can you tell me the number of COVID cases in?", "Give me COVID statistics in" ],
     "responses": ["Loading COVID metrics for a specific location..."],
@@ -77,11 +83,25 @@
    "context": [""],
    "action": {
      "type": "REST",
+     "parser": "parse_response_covid_metrics",
      "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
      "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
      "not_found_callback": "I am sorry, I have no information on the country: %s",
      "error_callback": "There is an issue with the data source. You will have to try again later :("
    }
-  }
+  },
+  {"tag": "search_covid_hospitals_by_country",
+    "patterns": [],
+    "responses": ["Loading COVID hospitals..."],
+    "context": [""],
+    "action": {
+      "type": "REST",
+      "parser": "parse_response_hospitals",
+      "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
+      "success_callback": "Displaying hospitals for %s\nHospital: %s",
+      "not_found_callback": "I am sorry, I have no information on the country: %s",
+      "error_callback": "There is an issue with the data source. You will have to try again later :("
+    }
+   }
 ]
 }
