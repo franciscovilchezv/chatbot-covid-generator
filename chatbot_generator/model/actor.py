@@ -17,7 +17,6 @@ def extract_country(sentence):
 
 def perform_action(action, question):
   country = extract_country(question)
-  print(action)
   if (action['type'] == REST_ACTION):
     url = (action['endpoint'] % country)
 
