@@ -15,8 +15,11 @@ def extract_country(sentence):
 
     return sentence
 
-def perform_action(action, question):
-  country = extract_country(question)
+def perform_action(action, question, personal_information):
+  if(personal_information['country']):
+    country = personal_information['country']
+  else:
+    country = extract_country(question)
   if (action['type'] == REST_ACTION):
     url = (action['endpoint'] % country)
 

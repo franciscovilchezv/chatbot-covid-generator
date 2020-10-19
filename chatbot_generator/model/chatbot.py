@@ -14,10 +14,12 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Dropout, InputLayer
 from tensorflow.keras.optimizers import SGD
 
+from chatbot_generator.model.translator import *
+
 class Chatbot:
   stemmer = LancasterStemmer()
 
-  def __init__(self, lang='EN'):
+  def __init__(self, lang='EN', country='USA'):
     self.words = []
     self.classes = []
     self.documents = []
@@ -25,8 +27,15 @@ class Chatbot:
     self.intents = None
     self.model = None
     self.context = ""
+    self.personal_information = {
+      "lang": lang, 
+      "country": country
+    }
 
     self.nlp = spacy.load("en_core_web_sm")
+
+    if(lang != 'EN'):
+      generate_dataset(lang)
 
     self.dataset = 'chatbot_generator/dataset/covid_intents_%s.json' % lang
 
@@ -38,12 +47,12 @@ class Chatbot:
           w = self.clean_tokenize_sentence(pattern)
 
           self.words.extend(w)
-          self.documents.append( (w, intent['tag']) )
+          self.documents.append( (w, intent['tag']) ) # Array< (Array<Token>, Tag) >
           if intent['tag'] not in self.classes:
             self.classes.append(intent['tag'])
 
-    self.words = sorted(list(set(self.words)))
-    self.classes = sorted(list(set(self.classes)))
+    self.words = sorted(list(set(self.words))) # Array<Array<Token>>
+    self.classes = sorted(list(set(self.classes))) # Array<Tags>
 
   def train_model(self):
     training = []
@@ -51,18 +60,19 @@ class Chatbot:
     output_empty = [0] * len(self.classes)
 
     for doc in self.documents:
-      bag = self.bow_encode(doc[0])
+      # doc is (Array<Token>, Tag)
+      bag = self.bow_encode(doc[0]) # parse array token as bag of words
 
-      output_row = list(output_empty)
-      output_row[self.classes.index(doc[1])] = 1
+      output_row = list(output_empty) 
+      output_row[self.classes.index(doc[1])] = 1 # parse tag as a binary
 
-      training.append([bag, output_row])
+      training.append([bag, output_row]) # [ BoW, ClassBinary ]
     
     random.shuffle(training)
     training = np.array(training)
 
-    train_x = list(training[:,0])
-    train_y = list(training[:,1])
+    train_x = list(training[:,0]) # First column = Array<BoW>
+    train_y = list(training[:,1]) # Second column = Array<ClassBinary>
 
     self.model = Sequential()
     self.model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
@@ -113,7 +123,7 @@ class Chatbot:
         action = intent['action']
 
         if action:
-          actor.perform_action(action, question)
+          actor.perform_action(action, question, self.personal_information)
 
         return
 

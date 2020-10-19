@@ -2,6 +2,7 @@
 # so I don't need to have one for each type of action
 import pandas as pd
 
+# Documentation for hospitals API: https://healthsites.io/api/docs/#
 def parse_response_hospitals(string_to_parse, country, data):
   return (string_to_parse % (
       country,

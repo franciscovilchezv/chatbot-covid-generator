@@ -1,0 +1,188 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hola",
+        "¿Cómo estás?",
+        "Hola",
+        "Buen día"
+      ],
+      "responses": [
+        "Hola gracias por preguntar",
+        "Qué bueno verte de nuevo",
+        "Hola, ¿cómo puedo ayudar?"
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Adiós",
+        "Nos vemos más tarde",
+        "Adiós",
+        "Encantado de charlar contigo, adiós",
+        "Hasta la proxima"
+      ],
+      "responses": [
+        "¡Nos vemos!",
+        "Que tengas un buen día",
+        "¡Adiós! Vuelve pronto."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Gracias",
+        "Gracias",
+        "Gracias por ayudarme"
+      ],
+      "responses": [
+        "¡Feliz de ayudar!",
+        "¡En cualquier momento!",
+        "El gusto es mio"
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "noanswer",
+      "patterns": [],
+      "responses": [
+        "Lo siento, no puedo entenderte",
+        "Por favor dame más información",
+        "No entiendo"
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "options",
+      "patterns": [
+        "¿Cómo podrías ayudarme?",
+        "¿Qué puedes hacer?",
+        "¿Qué ayuda brindas?",
+        "¿Cómo puedes ser útil?",
+        "Que apoyo se ofrece"
+      ],
+      "responses": [
+        "Puedo guiarte a través de información, recomendaciones y estadísticas de COVID",
+        "Ofreciendo soporte para información COVID"
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "covid_information",
+      "patterns": [
+        "¿Qué es COVID?",
+        "Dame información sobre COVID",
+        "¿Podrías explicarme qué es COVID?"
+      ],
+      "responses": [
+        "COVID-19 es una enfermedad infecciosa causada por el coronavirus 2 síndrome respiratorio agudo severo"
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "covid_symptoms",
+      "patterns": [
+        "¿Cuáles son los síntomas de COVID?"
+      ],
+      "responses": [
+        "COVID-19 afecta a diferentes personas de diferentes maneras. Se ha informado de una amplia gama de síntomas de personas infectadas, desde síntomas leves hasta enfermedades graves."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "covid_treatment",
+      "patterns": [
+        "¿Qué puedo tomar por COVID?",
+        "¿Qué es el tratamiento COVID?",
+        "¿Qué medicamento debo tomar para COVID?"
+      ],
+      "responses": [
+        "No se recomienda un tratamiento antiviral específico para COVID-19."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "covid_prevention",
+      "patterns": [
+        "¿Cómo puedo prevenir el COVID?",
+        "¿Cuáles son algunas de las medidas que puedo tomar contra COVID?"
+      ],
+      "responses": [
+        "Usar una mascarilla, lavarse las manos y mantener una distancia segura son las mejores opciones para la prevención del COVID."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {}
+    },
+    {
+      "tag": "covid_metrics_in_location",
+      "patterns": [
+        "¿Puede decirme el número de casos de COVID?",
+        "Dame estadísticas de COVID"
+      ],
+      "responses": [
+        "Cargando métricas de COVID para una ubicación específica ..."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {
+        "type": "REST",
+        "parser": "parse_response_covid_metrics",
+        "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
+        "success_callback": "Visualización de métricas de COVID para %s a partir de %s\nCasos de hoy: %s\nTotal de casos: %s",
+        "not_found_callback": "Lo siento, no tengo información del país: %s",
+        "error_callback": "Hay un problema con la fuente de datos. Tendrá que intentarlo de nuevo más tarde :("
+      }
+    },
+    {
+      "tag": "search_covid_hospitals_by_country",
+      "patterns": [
+        "¿Puedes decirme los hospitales cercanos?",
+        "Muéstrame los hospitales cerca de mí"
+      ],
+      "responses": [
+        "Cargando hospitales COVID ..."
+      ],
+      "context": [
+        ""
+      ],
+      "action": {
+        "type": "REST",
+        "parser": "parse_response_hospitals",
+        "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
+        "success_callback": "Visualización de hospitales para %s\nHospital: %s",
+        "not_found_callback": "Lo siento, no tengo información del país: %s",
+        "error_callback": "Hay un problema con la fuente de datos. Tendrá que intentarlo de nuevo más tarde :("
+      }
+    }
+  ]
+}

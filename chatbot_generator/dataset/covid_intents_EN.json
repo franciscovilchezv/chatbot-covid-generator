@@ -1,6 +1,6 @@
 {"intents": [
   {"tag": "greeting",
-   "patterns": ["Hi there", "How are you", "Is anyone there?", "Hello", "Good day"],
+   "patterns": ["Hi there", "How are you?", "Hello", "Good day"],
    "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
    "context": [""],
    "action": {}
@@ -12,19 +12,19 @@
    "action": {}
   },
   {"tag": "thanks",
-   "patterns": ["Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me"],
+   "patterns": ["Thanks", "Thank you", "Thanks for helping me"],
    "responses": ["Happy to help!", "Any time!", "My pleasure"],
    "context": [""],
    "action": {}
   },
   {"tag": "noanswer",
    "patterns": [],
-   "responses": ["Sorry, can't understand you", "Please give me more info", "Not sure I understand"],
+   "responses": ["Sorry, can't understand you", "Please give me more info", "I don't understand"],
    "context": [""],
    "action": {}
   },
   {"tag": "options",
-   "patterns": ["How you could help me?", "What you can do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
+   "patterns": ["How you could help me?", "What can you do?", "What help you provide?", "How you can be helpful?", "What support is offered"],
    "responses": ["I can guide you through COVID information, recommendations and statistics", "Offering support for COVID information"],
    "context": [""],
    "action": {}
@@ -53,45 +53,21 @@
    "context": [""],
    "action": {}
   },
-  {"tag": "covid_metrics",
-   "patterns": ["Can you tell me the number of COVID cases?", "Give me COVID statistics" ],
-   "responses": ["Which country are you interesting in looking for the number of COVID cases?"],
-   "context": ["search_covid_metrics_by_country"],
-   "action": {}
-  },
-  {"tag": "covid_hospitals",
-    "patterns": ["Can you tell me hospitals nearby?", "Show me the hospitals close to me" ],
-    "responses": ["Which country are you interesting in looking for the hospitals?"],
-    "context": ["search_covid_hospitals_by_country"],
-    "action": {}
-   },
   {"tag": "covid_metrics_in_location",
-    "patterns": ["Can you tell me the number of COVID cases in?", "Give me COVID statistics in" ],
+    "patterns": ["Can you tell me the number of COVID cases?", "Give me COVID statistics" ],
     "responses": ["Loading COVID metrics for a specific location..."],
     "context": [""],
     "action": {
       "type": "REST",
+      "parser": "parse_response_covid_metrics",
       "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
       "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
       "not_found_callback": "I am sorry, I have no information on the country: %s",
       "error_callback": "There is an issue with the data source. You will have to try again later :("
     }
    },
-  {"tag": "search_covid_metrics_by_country",
-   "patterns": [],
-   "responses": ["Loading COVID metrics..."],
-   "context": [""],
-   "action": {
-     "type": "REST",
-     "parser": "parse_response_covid_metrics",
-     "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
-     "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
-     "not_found_callback": "I am sorry, I have no information on the country: %s",
-     "error_callback": "There is an issue with the data source. You will have to try again later :("
-   }
-  },
   {"tag": "search_covid_hospitals_by_country",
-    "patterns": [],
+    "patterns": ["Can you tell me hospitals nearby?", "Show me the hospitals close to me" ],
     "responses": ["Loading COVID hospitals..."],
     "context": [""],
     "action": {
