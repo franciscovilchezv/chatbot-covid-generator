@@ -19,7 +19,7 @@ from chatbot_generator.model.translator import *
 class Chatbot:
   stemmer = LancasterStemmer()
 
-  def __init__(self, lang='EN', country='USA'):
+  def __init__(self, lang='EN', country='United States'):
     self.words = []
     self.classes = []
     self.documents = []
@@ -54,6 +54,26 @@ class Chatbot:
     self.words = sorted(list(set(self.words))) # Array<Array<Token>>
     self.classes = sorted(list(set(self.classes))) # Array<Tags>
 
+  def get_train_test_data(self, training):
+    label_included = []
+    test_x = []
+    test_y = []
+    train_x = []
+    train_y = []
+
+    for t in training:
+      label_decoded = int("".join(str(x) for x in t[1]), 2) 
+
+      if not label_decoded in label_included:
+        train_x.append(t[0])
+        train_y.append(t[1])
+        label_included.append(label_decoded)
+      else:
+        test_x.append(t[0])
+        test_y.append(t[1])
+    
+    return train_x, train_y, test_x, test_y
+
   def train_model(self):
     training = []
 
@@ -71,8 +91,10 @@ class Chatbot:
     random.shuffle(training)
     training = np.array(training)
 
-    train_x = list(training[:,0]) # First column = Array<BoW>
-    train_y = list(training[:,1]) # Second column = Array<ClassBinary>
+    # train_x = list(training[:,0]) # First column = Array<BoW>
+    # train_y = list(training[:,1]) # Second column = Array<ClassBinary>
+
+    train_x, train_y, test_x, test_y = self.get_train_test_data(training)
 
     self.model = Sequential()
     self.model.add(Dense(128, input_shape=(len(train_x[0]),), activation='relu'))
@@ -84,7 +106,7 @@ class Chatbot:
     sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     self.model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
 
-    self.model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=1)
+    self.model.fit(train_x, train_y, epochs=200, batch_size=5, verbose=1, validation_data=(train_x, train_y))
 
   def clean_tokenize_sentence(self, sentence):
     sentence_words = nltk.word_tokenize(sentence)

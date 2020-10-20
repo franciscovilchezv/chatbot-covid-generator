@@ -178,7 +178,7 @@
       "action": {
         "type": "REST",
         "parser": "parse_response_hospitals",
-        "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
+        "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb&page=1",
         "success_callback": "Visualización de hospitales para %s\nHospital: %s",
         "not_found_callback": "Lo siento, no tengo información del país: %s",
         "error_callback": "Hay un problema con la fuente de datos. Tendrá que intentarlo de nuevo más tarde :("
