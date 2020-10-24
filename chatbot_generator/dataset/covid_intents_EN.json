@@ -54,7 +54,7 @@
    "action": {}
   },
   {"tag": "covid_metrics_in_location",
-    "patterns": ["Can you tell me the number of COVID cases?", "Give me COVID statistics" ],
+    "patterns": ["Can you tell me the statistics for COVID cases?", "Give me COVID statistics" ],
     "responses": ["Loading COVID metrics for a specific location..."],
     "context": [""],
     "action": {
