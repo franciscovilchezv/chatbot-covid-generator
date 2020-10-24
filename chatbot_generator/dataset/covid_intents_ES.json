@@ -4,12 +4,12 @@
       "tag": "greeting",
       "patterns": [
         "Hola",
-        "¿Cómo estás?",
+        "How are you?",
         "Hola",
         "Buen día"
       ],
       "responses": [
-        "Hola gracias por preguntar",
+        "¡Hola!",
         "Qué bueno verte de nuevo",
         "Hola, ¿cómo puedo ayudar?"
       ],
@@ -35,7 +35,9 @@
       "context": [
         ""
       ],
-      "action": {}
+      "action": {
+        "type": "REDIRECTION"
+      }
     },
     {
       "tag": "thanks",
@@ -145,7 +147,7 @@
     {
       "tag": "covid_metrics_in_location",
       "patterns": [
-        "¿Puede decirme el número de casos de COVID?",
+        "¿Puede decirme las estadísticas de los casos de COVID?",
         "Dame estadísticas de COVID"
       ],
       "responses": [
@@ -158,9 +160,9 @@
         "type": "REST",
         "parser": "parse_response_covid_metrics",
         "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
-        "success_callback": "Visualización de métricas de COVID para %s a partir de %s\nCasos de hoy: %s\nTotal de casos: %s",
-        "not_found_callback": "Lo siento, no tengo información del país: %s",
-        "error_callback": "Hay un problema con la fuente de datos. Tendrá que intentarlo de nuevo más tarde :("
+        "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
+        "not_found_callback": "I am sorry, I have no information on the country: %s",
+        "error_callback": "There is an issue with the data source. You will have to try again later :("
       }
     },
     {
@@ -179,9 +181,9 @@
         "type": "REST",
         "parser": "parse_response_hospitals",
         "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
-        "success_callback": "Visualización de hospitales para %s\nHospital: %s",
-        "not_found_callback": "Lo siento, no tengo información del país: %s",
-        "error_callback": "Hay un problema con la fuente de datos. Tendrá que intentarlo de nuevo más tarde :("
+        "success_callback": "Displaying hospitals for %s\nHospital: %s",
+        "not_found_callback": "I am sorry, I have no information on the country: %s",
+        "error_callback": "There is an issue with the data source. You will have to try again later :("
       }
     }
   ]

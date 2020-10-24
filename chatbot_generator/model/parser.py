@@ -3,14 +3,16 @@
 import pandas as pd
 
 # Documentation for hospitals API: https://healthsites.io/api/docs/#
-def parse_response_hospitals(string_to_parse, country, data):
+def parse_response_hospitals(string_to_parse, country, data, i):
   return (string_to_parse % (
       country,
-      data[0]['attributes']['name']
+      (i+1),
+      len(data),
+      data[i]['attributes']['name']
     )
   )
 
-def parse_response_covid_metrics(string_to_parse, country, data):
+def parse_response_covid_metrics(string_to_parse, country, data, i):
   return (string_to_parse % (
       data['country'],
       pd.to_datetime(data['updated'], unit='ms').date(),

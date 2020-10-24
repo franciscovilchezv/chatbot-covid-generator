@@ -1,7 +1,7 @@
 {"intents": [
   {"tag": "greeting",
    "patterns": ["Hi there", "How are you?", "Hello", "Good day"],
-   "responses": ["Hello, thanks for asking", "Good to see you again", "Hi there, how can I help?"],
+   "responses": ["Hello!", "Good to see you again", "Hi there, how can I help?"],
    "context": [""],
    "action": {}
   },
@@ -9,7 +9,9 @@
    "patterns": ["Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time"],
    "responses": ["See you!", "Have a nice day", "Bye! Come back again soon."],
    "context": [""],
-   "action": {}
+   "action": {
+     "type": "REDIRECTION"
+   }
   },
   {"tag": "thanks",
    "patterns": ["Thanks", "Thank you", "Thanks for helping me"],
@@ -74,7 +76,8 @@
       "type": "REST",
       "parser": "parse_response_hospitals",
       "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
-      "success_callback": "Displaying hospitals for %s\nHospital: %s",
+      "success_callback": "Displaying hospitals for %s. Hospital %s of %s:\n> %s",
+      "success_continuation": "Type `n` to display the next result or `q` to end.",
       "not_found_callback": "I am sorry, I have no information on the country: %s",
       "error_callback": "There is an issue with the data source. You will have to try again later :("
     }

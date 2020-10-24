@@ -14,6 +14,9 @@ languages = {
   "ES": "Spanish"
 }
 
+REST_ACTION = "REST"
+REDIRECTION = "REDIRECTION"
+
 def translate_sentence(sentence, dest_language):
   return translator.translate(sentence, dest_language).text.replace("% s", " %s")
 
@@ -40,10 +43,11 @@ def generate_dataset(lang="ES"):
         responses_translated.append(translate_sentence(response, lang))
       intent['responses'] = responses_translated
 
-      if intent['action']:
+      if intent['action'] == REST_ACTION:
         intent['action']['success_callback'] = translate_sentence(intent['action']['success_callback'], lang)
         intent['action']['not_found_callback'] = translate_sentence(intent['action']['not_found_callback'], lang)
         intent['action']['error_callback'] = translate_sentence(intent['action']['error_callback'], lang)
+        intent['action']['success_continuation'] = translate_sentence(intent['action']['success_continuation'], lang)
 
     print("Saving intents file...")
     with open("chatbot_generator/dataset/covid_intents_ES.json", "w", encoding='utf8') as outfile:  

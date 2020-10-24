@@ -55,10 +55,10 @@ class Chatbot:
     self.classes = sorted(list(set(self.classes))) # Array<Tags>
 
   def train_model(self):
+    print("Training model...")
     training = []
 
     output_empty = [0] * len(self.classes)
-    print(self.documents)
     # random.shuffle(self.documents)
 
     labels_included_train = []
@@ -143,24 +143,31 @@ class Chatbot:
   
 
   def perform_response(self, prediction_tag, question):
+    response_code = 200
+
     for intent in self.intents['intents']:
       if intent['tag'] == prediction_tag:
         self.context = random.choice(intent['context'])
 
-        print("[%s]{%s}" % (prediction_tag, self.context), random.choice(intent['responses']))
+        print("System (Covid:%s:%s)\t$: [%s]{%s}" % (
+          self.personal_information["lang"], self.personal_information["country"], 
+          prediction_tag, self.context
+        ), random.choice(intent['responses']))
         
         action = intent['action']
 
         if action:
-          actor.perform_action(action, question, self.personal_information)
+          response_code = actor.perform_action(action, question, self.personal_information)
 
-        return
+        print()
 
+        return response_code
+ 
     raise Exception("No answer available for prediction: %s" % prediction_tag)
 
   def ask(self, question):
     prediction_tag = self.predict_tag(question)
 
-    self.perform_response(prediction_tag, question)
+    return self.perform_response(prediction_tag, question)
 
     
