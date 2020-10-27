@@ -78,7 +78,7 @@
 
 \section{Problem}
 
-Due to the pandemic, a high number of resources and datasets regarding COVID-19 appeared, making it one the topics that most of the population is interested in the current days. However, despite of the great amount of information, the data is not easily accessible for the needs of every user. If a user needs to get a specific information for COVID-19, they will likely have to learn how to use a specific user interface, which is not always easy to use or does not always provide the functionality that they need. On other scenarios, the users are even expected to know a programming language in order to be able to fetch the data that they need and further analyze.
+Due to the pandemic, a high number of resources and datasets regarding COVID-19 appeared, making it one the topics that most of the population is interested in the current days. However, despite of the great amount of information, the data is not easily accessible for the needs of every user. If a user needs to get a specific information for COVID-19, they will likely have to learn how to use a specific user interface, which is not always easy to learn or does not always provide the functionality that they need. On other scenarios, the users are even expected to know a programming language in order to be able to fetch the data that they need and do a further analysis.
 
 A chatbot provides a more natural way for users to interact with data and use it according to their needs. Our chatbot generator will allow people to generate chatbots focused on a predefined set of resources targeted to the user\'s location and be able to communicate with it using the language that they prefer.
 
@@ -102,14 +102,14 @@ The conversational capabilities of our chatbot are based on data sources for thr
 
 \section{Method/Solution Steps/Algorithm}
 
-In this project, a retrieval-based approach was used for the creation of the chatbot, with a neural network for the response decision process. The details for each component and the algorithms used will be detailed in this section. The steps followed can be improved in the future in order to get better accuracy results.
+In this project, a retrieval-based approach was used for the creation of the chatbot, with a neural network for the response decision process. The details for each component and the algorithms used will be detailed in this section. Each of the steps followed during this work could be improved in the future in order to get better accuracy results.
 
 \subsection{Responses dataset}
 A dataset in JSON format was created manually in English language. Each JSON item represented a response that our chatbot should use for the user's utterance. The structure of the JSON object goes as follow:
 
 \begin{lstlisting}[language=json,firstnumber=1, caption=JSON object for a chatbot response]
   {
-    "tag": "A code for the chatbot response",
+    "tag": "An ID for the chatbot response",
     "patterns": "List of questions that trigger this response",
     "responses": "List of responses for the questions",
     "context": "(Optional) Next tag that follows this response",
@@ -121,9 +121,9 @@ A dataset in JSON format was created manually in English language. Each JSON ite
 This step generates a dataset in a different language than English. This process is only performed in case the language selected by the user for the chatbot is different than English. If that is the case, this new dataset will be the one used in the following sections instead of the English dataset.
 
 \subsection{Preprocessing}
-The set of possible chat responses are preprocessed in order to use them for feeding the neural network and make a more accurate prediction. Since the input to the chatbot will the the user's utterance, we need to use it to determine to which tag it corresponds.
+The set of possible chat responses are preprocessed in order to use them for feeding the neural network and make a more accurate prediction. Since the input to the chatbot will be the user's utterance, we need to preprocess it and use it later in order to determine to which tag it corresponds.
 
-From out dataset of responses, we already have a set of \emph{patterns} (list of questions in our dataset) with their respective \emph{tag} (an ID assigned to the response). So can use them to train a Neural Network and predict with response will correspond to a different question from the user. However, we need to clean our questions in order to improve the accuracy of our responses, for that we used two process:
+From our dataset of responses, we already have a set of \emph{patterns} (list of questions in our dataset) with their respective \emph{tag} (an ID assigned to the response). So can use them to train a Neural Network and predict with response will correspond to a different question from the user. However, we need to clean our questions in order to improve the accuracy of our responses. For that we used two process:
 
 \begin{itemize}
   \item{Stemming:} For reducing each of the words in the question to their \emph{stem} and that way generalize the question to other similar questions with a few word tense differences.
@@ -144,9 +144,9 @@ Our neural network is trained based on our dataset of questions so it can predic
 \begin{itemize}
   \item{Input Layer:} The number of input units is equal to the length of our vocabulary, i.e. the length of the representational array in our bag of words.
   \item{Hidden Layers:} A first hidden layer with 128 neurons and a second hidden layer with 64 neurons were included. Each of the have a \emph{relu} activation function and a 50\% dropout.
-  \item{Output Layer:} The number of units in our output layers is equal to the number of possible \emph{tags} for our questions. A \emph{sophmax} activation layer was included.
-  \item{Loss function:} Categorical crossentropy was used due to its good results in multi-task classification tasks.
-  \item{Optimizer:} Stochastic Gradient Descent (SGD) was used as the iterative method for optimizing the objective function.
+  \item{Output Layer:} The number of units in our output layers is equal to the number of possible \emph{tags} for our questions. A \emph{softmax} activation layer was included.
+  \item{Loss function:} \emph{Categorical crossentropy} was used due to its good results in multi-task classification tasks.
+  \item{Optimizer:} \emph{Stochastic Gradient Descent} (SGD) was used as the iterative method for optimizing the objective function.
 \end{itemize}
 
 \section{Evaluation}
@@ -259,7 +259,7 @@ Regresando al modo de configuracion de Generacion de Chatbot
 \end{lstlisting}
 
 \section*{Significance of work/Discussion}
-This project provided the ability for users to create chatbots with covid information based on their personal configuration to match their needs, which provides different benefits. On one side, it gives users from different locations the ability to interact with different datasets (in this case, COVID informations and data) in a more intuitive way. On the other side, it generalizes the way chatbots are created in order to make it feasible to adapt it to any other type of information different than COVID. This flexibily is important since the ammount on datasets and information that appear in internet will keep growing, so it is important to give people the ability to interact with any new data source that may appear in an easy and intuitive way.
+This project provided the ability for users to create chatbots for giving COVID information based on the configuration they selected to match their needs, which provides different benefits. On one side, it gives users from different locations the ability to interact with different datasets (in this case, COVID informations and data) in a more intuitive way. On the other side, it generalizes the way chatbots are created in order to make it feasible to adapt it to any other type of information different than COVID. This flexibily is important since the ammount on datasets and information that appear in internet will keep growing, so it is important to give people the ability to interact with any new data source that may appear in an easy and intuitive way.
 
 \bibliographystyle{ieeetr}
 \bibliography{fvilchez}
