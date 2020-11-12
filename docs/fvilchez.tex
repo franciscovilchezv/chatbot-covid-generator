@@ -7,6 +7,7 @@
 \usepackage[parfill]{parskip}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{graphicx}
 \usepackage{amsmath}  % for \hookrightarrow
 % \usepackage{bera}
 
@@ -76,13 +77,8 @@
 \begin{document}
 \maketitle
 
-\section{Problem}
 
-Due to the pandemic, a high number of resources and datasets regarding COVID-19 appeared, making it one the topics that most of the population is interested in the current days. However, despite of the great amount of information, the data is not easily accessible for the needs of every user. If a user needs to get a specific information for COVID-19, they will likely have to learn how to use a specific user interface, which is not always easy to learn or does not always provide the functionality that they need. On other scenarios, the users are even expected to know a programming language in order to be able to fetch the data that they need and do a further analysis.
-
-A chatbot provides a more natural way for users to interact with data and use it according to their needs. Our chatbot generator will allow people to generate chatbots focused on a predefined set of resources targeted to the user\'s location and be able to communicate with it using the language that they prefer.
-
-\section{Related Work}
+\section{Background}
 The usage of chatbots for enabling access to information for regular users have already been analyzed in previous works. Its abilities to adapt to different domains and data sources make them a good choice to engage different type of users. Due to the increment of open data resources, they are considered a good option where insights from the data can be helpful for different users and its information should be easily accessible. This approach fits perfectly for solving our problem since the system can dynamically create one or more queries to answer the user's inquiry \cite{srivastava2018decision}.
 
 Additionally, it is been analyzed scenarios where chatbots need to be configured based on user's specific preferences, like language or locations, which is referred as \emph{personal chatbots}. Previous works have analyzed different approaches and architectures to achieve this result and the requirements that a personal chatbot should comply in order to be useful for the users \cite{daniel2018toward}.
@@ -90,15 +86,11 @@ Additionally, it is been analyzed scenarios where chatbots need to be configured
 On the other hand, Python\footnote{Python Programming Language: python.org} is a language with a set of tools that can help us to achieve our goal. Libraries like Tensorflow\footnote{Machine Learning platform developed by Google: tensorflow.org} provides us the ability to create \emph{Neural Networks} for finding patterns in a predefined set of responses to simulate the conversational behavior of our chatbot. Spacy\footnote{Natural Language Processing library: spacy.io} allows us to process text through different NLTK processes like POS Tagging, Dependency Parse and Named Entities. NLTK\footnote{Text Processing library: nltk.org} helps us with preprocessing tasks like lemmatization. Finally, libraries like Numpy\footnote{numpy.org} or Pandas\footnote{pandas.pydata.org} help us to manipulate dataset of datas in a more easy and efficient way.
 
 
-\section{Data Sources}
+\section{Problem}
 
-The conversational capabilities of our chatbot are based on data sources for three different aspects:
+Due to the pandemic, a high number of resources and datasets regarding COVID-19 appeared, making it one the topics that most of the population is interested in the current days. However, despite of the great amount of information, the data is not easily accessible for the needs of every user. If a user needs to get a specific information for COVID-19, they will likely have to learn how to use a specific user interface, which is not always easy to learn or does not always provide the functionality that they need. On other scenarios, the users are even expected to know a programming language in order to be able to fetch the data that they need and do a further analysis.
 
-\begin{itemize}
-  \item COVID: Information related to COVID, its symptoms and recommendations were taken from CDC Website\footnote{CDC COVID Information website: https://www.cdc.gov/coronavirus/2019-ncov/index.html}.
-  \item Statistics: Information regarding COVID cases per country, including information as total cases, today cases, deaths, today death, etc. were taken from Novel COVID19 API\footnote{Documentation available at disease.dh/docs}
-  \item Hospitals: Information about hospitals available for each country (not all countries supported), were taken from Healthsites API\footnote{Documentation available at https://healthsites.io/api/docs/}.
-\end{itemize}
+A chatbot provides a more natural way for users to interact with data and use it according to their needs. Our chatbot generator will allow people to generate chatbots focused on a predefined set of resources targeted to the user\'s location and be able to communicate with it using the language that they prefer.
 
 \section{Method/Solution Steps/Algorithm}
 
@@ -149,10 +141,18 @@ Our neural network is trained based on our dataset of questions so it can predic
   \item{Optimizer:} \emph{Stochastic Gradient Descent} (SGD) was used as the iterative method for optimizing the objective function.
 \end{itemize}
 
-\section{Evaluation}
-As mentioned in the previous section, part of the dataset was used to test the accuracy of our Neural Network model. Based on the approach followed an average of 50\% accuracy was obtained by our model.
+\subsection{Data Sources}
 
-In order to test our chatbot generator, the following steps were followed for each of the languages.
+The conversational capabilities of our chatbot are based on data sources for three different aspects:
+
+\begin{itemize}
+  \item COVID: Information related to COVID, its symptoms and recommendations were taken from CDC Website\footnote{CDC COVID Information website: https://www.cdc.gov/coronavirus/2019-ncov/index.html}.
+  \item Statistics: Information regarding COVID cases per country, including information as total cases, today cases, deaths, today death, etc. were taken from Novel COVID19 API\footnote{Documentation available at disease.dh/docs}
+  \item Hospitals: Information about hospitals available for each country (not all countries supported), were taken from Healthsites API\footnote{Documentation available at https://healthsites.io/api/docs/}.
+\end{itemize}
+
+\section{Demonstration}
+The capabilities of our chatbot for both languages are displayed below:
 
 \begin{lstlisting}[language=bash, caption=English Chatbot Test Case, style=mybashcode]
 Welcome to COVID Chatbot Generator. Create your chatbot as desired.
@@ -258,7 +258,66 @@ Regresando al modo de configuracion de Generacion de Chatbot
 [Process returns to the beginning]
 \end{lstlisting}
 
-\section*{Significance of work/Discussion}
+\section*{Evaluation}
+As mentioned in the previous section, part of the dataset was randomly used to test the accuracy of our Neural Network model. Based on the approach followed an average of 50\% accuracy was obtained by our model. An example of the evaluation results for each language model are presented below:
+
+\begin{table}[h!]
+  \caption{\label{tab:ev-english}Evaluation for English chatbot}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Question asked & Answer category returned by chatbot & Answer category that should be returned \\
+    \hline
+    Hi & greeting & greeting \\
+    Hello & greeting & greeting \\
+    \hline
+    What is COVID & X & covid\_information \\
+    Tell me about COVID & X & covid\_information \\
+    \hline
+    What are COVID symptoms & X & covid\_symptoms \\
+    Tell me about COVID symptoms & X & covid\_symptoms \\
+    \hline
+    Show me COVID statistics & X & covid\_metrics\_in\_location \\
+    Give me COVID statistics & X & covid\_metrics\_in\_location \\
+    \hline
+    Show me hospitals near me & X & covid\_metrics\_in\_location \\
+    Show me hospitals close to me & X & covid\_metrics\_in\_location \\
+    \hline
+    Bye & X & goodbye \\
+    See you later & X & goodbye \\
+    \hline
+  \end{tabular}}
+\end{table}
+
+\begin{table}[h!]
+  \caption{\label{tab:ev-spanish}Evaluation for Spanish Chatbot}
+  \resizebox{\textwidth}{!}{
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Question asked & Answer category returned by chatbot & Answer category that should be returned \\
+    \hline
+    Hola & greeting & greeting \\
+    Qué tal & greeting & greeting \\
+    \hline
+    Qué es el COVID & X & covid\_information \\
+    Háblame del COVID & X & covid\_information \\
+    \hline
+    What are COVID symptoms & X & covid\_symptoms \\
+    Tell me about COVID symptoms & X & covid\_symptoms \\
+    \hline
+    Show me COVID statistics & X & covid\_metrics\_in\_location \\
+    Give me COVID statistics & X & covid\_metrics\_in\_location \\
+    \hline
+    Show me hospitals near me & X & covid\_metrics\_in\_location \\
+    Show me hospitals close to me & X & covid\_metrics\_in\_location \\
+    \hline
+    Bye & X & goodbye \\
+    See you later & X & goodbye \\
+    \hline
+  \end{tabular}}
+\end{table}
+
+\section*{Discussion}
 This project provided the ability for users to create chatbots for giving COVID information based on the configuration they selected to match their needs, which provides different benefits. On one side, it gives users from different locations the ability to interact with different datasets (in this case, COVID informations and data) in a more intuitive way. On the other side, it generalizes the way chatbots are created in order to make it feasible to adapt it to any other type of information different than COVID. This flexibily is important since the ammount on datasets and information that appear in internet will keep growing, so it is important to give people the ability to interact with any new data source that may appear in an easy and intuitive way.
 
 \bibliographystyle{ieeetr}
