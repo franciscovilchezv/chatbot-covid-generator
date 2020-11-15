@@ -1,5 +1,6 @@
-# chatbot-covid-generator
-CSCE 771 - NLP Project
+# Chatbot COVID Generator
+
+Generator of a COVID chatbot in English or Spanish for providing information about COVID.
 
 # Covid data source
 https://postman-toolboxes.github.io/covid-19/#featured-collections

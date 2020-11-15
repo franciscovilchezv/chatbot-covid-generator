@@ -6,7 +6,8 @@
         "Hola",
         "¿Cómo estás?",
         "Hola",
-        "Buen día"
+        "Buen día",
+        "¿Cómo te va?"
       ],
       "responses": [
         "¡Hola!",
@@ -105,7 +106,9 @@
     {
       "tag": "covid_symptoms",
       "patterns": [
-        "¿Cuáles son los síntomas de COVID?"
+        "¿Cuáles son los síntomas de COVID?",
+        "Dime los síntomas de COVID",
+        "Explícame los síntomas de COVID"
       ],
       "responses": [
         "COVID-19 afecta a diferentes personas de diferentes maneras. Se ha informado de una amplia gama de síntomas de personas infectadas, desde síntomas leves hasta enfermedades graves."
@@ -134,7 +137,8 @@
       "tag": "covid_prevention",
       "patterns": [
         "¿Cómo puedo prevenir el COVID?",
-        "¿Cuáles son algunas de las medidas que puedo tomar contra COVID?"
+        "¿Cuáles son algunas de las medidas que puedo tomar contra COVID?",
+        "¿Cómo evitar COVID?"
       ],
       "responses": [
         "Usar una mascarilla, lavarse las manos y mantener una distancia segura son las mejores opciones para la prevención del COVID."
@@ -148,7 +152,8 @@
       "tag": "covid_metrics_in_location",
       "patterns": [
         "¿Puede decirme las estadísticas de los casos de COVID?",
-        "Dame estadísticas de COVID"
+        "Dame estadísticas de COVID",
+        "Muéstrame estadísticas de COVID"
       ],
       "responses": [
         "Cargando métricas de COVID para una ubicación específica ..."
@@ -169,7 +174,8 @@
       "tag": "search_covid_hospitals_by_country",
       "patterns": [
         "¿Puedes decirme los hospitales cercanos?",
-        "Muéstrame los hospitales cerca de mí"
+        "Muéstrame los hospitales cerca de mí",
+        "¿Qué hospitales están cerca aquí?"
       ],
       "responses": [
         "Cargando hospitales COVID ..."

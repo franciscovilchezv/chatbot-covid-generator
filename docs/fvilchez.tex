@@ -259,9 +259,9 @@ Regresando al modo de configuracion de Generacion de Chatbot
 \end{lstlisting}
 
 \section*{Evaluation}
-As mentioned in the previous section, part of the dataset was randomly used to test the accuracy of our Neural Network model. Based on the approach followed an average of 50\% accuracy was obtained by our model. An example of the evaluation results for each language model are presented below:
+As mentioned in the previous section, part of the dataset was randomly used to test the accuracy of our Neural Network model. Based on the approach followed an average of 60\% accuracy was obtained by our model. An example of the evaluation results for each language model are presented below:
 
-\begin{table}[h!]
+\begin{table}[h]
   \caption{\label{tab:ev-english}Evaluation for English chatbot}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|c|c|c|}
@@ -271,25 +271,25 @@ As mentioned in the previous section, part of the dataset was randomly used to t
     Hi & greeting & greeting \\
     Hello & greeting & greeting \\
     \hline
-    What is COVID & X & covid\_information \\
-    Tell me about COVID & X & covid\_information \\
+    What is COVID & covid\_information & covid\_information \\
+    Give me information about COVID & covid\_metrics\_in\_location & covid\_information \\
     \hline
-    What are COVID symptoms & X & covid\_symptoms \\
-    Tell me about COVID symptoms & X & covid\_symptoms \\
+    What are COVID symptoms & covid\_symptoms & covid\_symptoms \\
+    Tell me about COVID symptoms & covid\_symptoms & covid\_symptoms \\
     \hline
-    Show me COVID statistics & X & covid\_metrics\_in\_location \\
-    Give me COVID statistics & X & covid\_metrics\_in\_location \\
+    Show me COVID statistics & covid\_metrics\_in\_location & covid\_metrics\_in\_location \\
+    Give me COVID statistics & covid\_metrics\_in\_location & covid\_metrics\_in\_location \\
     \hline
-    Show me hospitals near me & X & covid\_metrics\_in\_location \\
-    Show me hospitals close to me & X & covid\_metrics\_in\_location \\
+    Can you tell me hospitals nearby & search\_covid\_hospitals\_by\_country & search\_covid\_hospitals\_by\_country \\
+    Show me hospitals close to me & search\_covid\_hospitals\_by\_country & search\_covid\_hospitals\_by\_country \\
     \hline
-    Bye & X & goodbye \\
-    See you later & X & goodbye \\
+    Bye & goodbye & goodbye \\
+    See you later & options & goodbye \\
     \hline
   \end{tabular}}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[h]
   \caption{\label{tab:ev-spanish}Evaluation for Spanish Chatbot}
   \resizebox{\textwidth}{!}{
   \begin{tabular}{|c|c|c|}
@@ -297,28 +297,36 @@ As mentioned in the previous section, part of the dataset was randomly used to t
     Question asked & Answer category returned by chatbot & Answer category that should be returned \\
     \hline
     Hola & greeting & greeting \\
-    Qué tal & greeting & greeting \\
+    Cómo estás & greeting & greeting \\
     \hline
-    Qué es el COVID & X & covid\_information \\
-    Háblame del COVID & X & covid\_information \\
+    Qué es el COVID & covid\_information & covid\_information \\
+    Háblame del COVID & covid\_information & covid\_information \\
     \hline
-    What are COVID symptoms & X & covid\_symptoms \\
-    Tell me about COVID symptoms & X & covid\_symptoms \\
+    Cuáles son los síntomas de COVID & covid\_symptoms & covid\_symptoms \\
+    Dime los síntomas de COVID & covid\_symptoms & covid\_symptoms \\
     \hline
-    Show me COVID statistics & X & covid\_metrics\_in\_location \\
-    Give me COVID statistics & X & covid\_metrics\_in\_location \\
+    Puedes decirme las estadísticas de los casos de COVID & covid\_metrics\_in\_location & covid\_metrics\_in\_location \\
+    Dame estadísticas de COVID & covid\_metrics\_in\_location & covid\_metrics\_in\_location \\
     \hline
-    Show me hospitals near me & X & covid\_metrics\_in\_location \\
-    Show me hospitals close to me & X & covid\_metrics\_in\_location \\
+    Puedes decirme los hospitales cercanos & search\_covid\_hospitals\_by\_country & search\_covid\_hospitals\_by\_country \\
+    Muéstrame los hospitales cerca de mí & covid\_symptoms & search\_covid\_hospitals\_by\_country \\
     \hline
-    Bye & X & goodbye \\
-    See you later & X & goodbye \\
+    Adiós & goodbye & goodbye \\
+    Nos vemos más tarde & greeting & goodbye \\
     \hline
   \end{tabular}}
 \end{table}
 
+\newpage
+
+For both cases, we could see that from the total of $ 12 $ questions asked, it retuned $ 10 $ correct answers which is equal to 83\% of accuracy. These results were randomly realized, because of that the accuracy could change.
+
 \section*{Discussion}
 This project provided the ability for users to create chatbots for giving COVID information based on the configuration they selected to match their needs, which provides different benefits. On one side, it gives users from different locations the ability to interact with different datasets (in this case, COVID informations and data) in a more intuitive way. On the other side, it generalizes the way chatbots are created in order to make it feasible to adapt it to any other type of information different than COVID. This flexibily is important since the ammount on datasets and information that appear in internet will keep growing, so it is important to give people the ability to interact with any new data source that may appear in an easy and intuitive way.
+
+During its developments, we faced an issue with the dependency with the different structures for the data received by external APIs, which control the functionalities of covid statistics and hospitals offered in our chatbot. This involved an additional data structure customization in our chatbot that could enable us to still have the ability to generate chatbots in different languages without compromising the functionality of the APIs. Additionally, the dependency on external tools for NLP features like spacy.io, which its performance changes drastically between languages, made us keep using features from English spacy.io tool even for different other languages like entity recognition.
+
+We are expecting to keep improving this project so the accuracy is increased and get better results. We are considering using a different data representation model for our chatbot sentences. Additionally, a deeper analysis in the structure of our neural network could improve the results obtained. On the other hand, support for a broader amount of languages are easily achievable with the usage of our translation APIs. Futhermore, we expect to make the APIs for retrieving information customizable in order to allow users to decide which datasource should retrieve their COVID information or statistics. Finally, we consider that users should also have a learning mode in which they can increase the capabilities of the chatbots generated and that way expand the options they can offer.
 
 \bibliographystyle{ieeetr}
 \bibliography{fvilchez}
