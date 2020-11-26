@@ -38,7 +38,7 @@ def perform_action(action, question, personal_information):
 
       if("success_continuation" in action.keys()):
         while(data_number < len(data)):
-          print(action['success_continuation'])
+          print(action['success_continuation'], end=" ")
 
           if(input() == 'n'):
             data_number += 1

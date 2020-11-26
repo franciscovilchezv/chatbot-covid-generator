@@ -1,6 +1,6 @@
 {"intents": [
   {"tag": "greeting",
-   "patterns": ["Hi there", "How are you?", "Hello", "Good day", "How's it going?"],
+   "patterns": ["Hi there", "How are you?", "Hello", "Good day", "How's it going?", "How's everything?"],
    "responses": ["Hello!", "Good to see you again", "Hi there, how can I help?"],
    "context": [""],
    "action": {}
@@ -32,13 +32,13 @@
    "action": {}
   },
   {"tag": "covid_information",
-   "patterns": ["What is COVID?", "Give me information about COVID", "Could you explain me what COVID is?"],
+   "patterns": ["What is COVID?", "Give me information about COVID", "Could you explain me what COVID is?", "What do you know about COVID?"],
    "responses": ["COVID-19 is an infectious disease caused by severte acute respiratory syndome coronaravirus 2"],
    "context": [""],
    "action": {}
   },
   {"tag": "covid_symptoms",
-   "patterns": ["What are COVID symptoms?", "Tell me COVID symptoms", "Explain me COVID symptoms"],
+   "patterns": ["What are COVID symptoms?", "Tell me COVID symptoms", "Explain me COVID symptoms", "Show me COVID symptoms"],
    "responses": ["COVID-19 affects different people in different ways. Infected people have had a wide range of symptoms reported – from mild symptoms to severe illness."],
    "context": [""],
    "action": {}
@@ -50,13 +50,13 @@
    "action": {}
   },
   {"tag": "covid_prevention",
-   "patterns": ["How can I prevent COVID?", "What are some measures I can take against COVID?", "How to avoid COVID?"],
+   "patterns": ["How can I prevent COVID?", "What are some measures I can take against COVID?", "How to avoid COVID?", "What are the recommendations against COVID?", "What do your recommend to prevent COVID?"],
    "responses": ["Wear a mask, wash your hands and keep a safe distance are the best options for COVID prevention."],
    "context": [""],
    "action": {}
   },
   {"tag": "covid_metrics_in_location",
-    "patterns": ["Can you tell me the statistics for COVID cases?", "Give me COVID statistics", "Show me COVID statistics"],
+    "patterns": ["Can you tell me the statistics for COVID cases?", "Give me COVID statistics", "Show me COVID statistics", "What are COVID statistics?", "Show me the number of COVID cases", "What are the number of COVID cases?"],
     "responses": ["Loading COVID metrics for a specific location..."],
     "context": [""],
     "action": {
@@ -77,7 +77,7 @@
       "parser": "parse_response_hospitals",
       "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
       "success_callback": "Displaying hospitals for %s. Hospital %s of %s:\n> %s",
-      "success_continuation": "Type `n` to display the next result or `q` to end.",
+      "success_continuation": "Type 'n' to display the next result or 'q' to end:",
       "not_found_callback": "I am sorry, I have no information on the country: %s",
       "error_callback": "There is an issue with the data source. You will have to try again later :("
     }

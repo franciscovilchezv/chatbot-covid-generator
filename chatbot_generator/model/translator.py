@@ -43,11 +43,12 @@ def generate_dataset(lang="ES"):
         responses_translated.append(translate_sentence(response, lang))
       intent['responses'] = responses_translated
 
-      if intent['action'] == REST_ACTION:
+      if intent['action'] and intent['action']['type'] == REST_ACTION:
         intent['action']['success_callback'] = translate_sentence(intent['action']['success_callback'], lang)
         intent['action']['not_found_callback'] = translate_sentence(intent['action']['not_found_callback'], lang)
         intent['action']['error_callback'] = translate_sentence(intent['action']['error_callback'], lang)
-        intent['action']['success_continuation'] = translate_sentence(intent['action']['success_continuation'], lang)
+        if 'success_continuation' in intent['action'].keys():
+          intent['action']['success_continuation'] = translate_sentence(intent['action']['success_continuation'], lang)
 
     print("Saving intents file...")
     with open("chatbot_generator/dataset/covid_intents_ES.json", "w", encoding='utf8') as outfile:  

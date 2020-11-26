@@ -7,7 +7,8 @@
         "¿Cómo estás?",
         "Hola",
         "Buen día",
-        "¿Cómo te va?"
+        "¿Cómo te va?",
+        "¿Como esta todo?"
       ],
       "responses": [
         "¡Hola!",
@@ -93,7 +94,8 @@
       "patterns": [
         "¿Qué es COVID?",
         "Dame información sobre COVID",
-        "¿Podrías explicarme qué es COVID?"
+        "¿Podrías explicarme qué es COVID?",
+        "¿Qué sabes sobre COVID?"
       ],
       "responses": [
         "COVID-19 es una enfermedad infecciosa causada por el coronavirus 2 síndrome respiratorio agudo severo"
@@ -108,7 +110,8 @@
       "patterns": [
         "¿Cuáles son los síntomas de COVID?",
         "Dime los síntomas de COVID",
-        "Explícame los síntomas de COVID"
+        "Explícame los síntomas de COVID",
+        "Muéstrame los síntomas de COVID"
       ],
       "responses": [
         "COVID-19 afecta a diferentes personas de diferentes maneras. Se ha informado de una amplia gama de síntomas de personas infectadas, desde síntomas leves hasta enfermedades graves."
@@ -121,7 +124,7 @@
     {
       "tag": "covid_treatment",
       "patterns": [
-        "¿Qué puedo tomar por COVID?",
+        "¿Qué puedo tomar para COVID?",
         "¿Qué es el tratamiento COVID?",
         "¿Qué medicamento debo tomar para COVID?"
       ],
@@ -138,7 +141,9 @@
       "patterns": [
         "¿Cómo puedo prevenir el COVID?",
         "¿Cuáles son algunas de las medidas que puedo tomar contra COVID?",
-        "¿Cómo evitar COVID?"
+        "¿Cómo evitar COVID?",
+        "¿Cuáles son las recomendaciones contra COVID?",
+        "¿Qué recomienda para prevenir COVID?"
       ],
       "responses": [
         "Usar una mascarilla, lavarse las manos y mantener una distancia segura son las mejores opciones para la prevención del COVID."
@@ -153,7 +158,10 @@
       "patterns": [
         "¿Puede decirme las estadísticas de los casos de COVID?",
         "Dame estadísticas de COVID",
-        "Muéstrame estadísticas de COVID"
+        "Muéstrame estadísticas de COVID",
+        "¿Qué son las estadísticas de COVID?",
+        "Muéstrame el número de casos de COVID",
+        "¿Cuál es la cantidad de casos de COVID?"
       ],
       "responses": [
         "Cargando métricas de COVID para una ubicación específica ..."
@@ -165,9 +173,9 @@
         "type": "REST",
         "parser": "parse_response_covid_metrics",
         "endpoint": "https://corona.lmao.ninja/v2/countries/%s?yesterday=true&strict=true&query =",
-        "success_callback": "Displaying COVID metrics for %s as of %s\nToday cases: %s\nTotal cases: %s",
-        "not_found_callback": "I am sorry, I have no information on the country: %s",
-        "error_callback": "There is an issue with the data source. You will have to try again later :("
+        "success_callback": "Visualización de métricas de COVID para %s a %s\nCasos de hoy: %s\nTotal de casos: %s",
+        "not_found_callback": "Lo siento, no tengo información del país: %s",
+        "error_callback": "Hay un problema con la fuente de datos. Tendrá que volver a intentarlo más tarde :("
       }
     },
     {
@@ -187,10 +195,10 @@
         "type": "REST",
         "parser": "parse_response_hospitals",
         "endpoint": "https://healthsites.io/api/v2/facilities/?country=%s&api-key=e7a96c596428cac2a023898e40b13be84ff329cb",
-        "success_callback": "Displaying hospitals for %s. Hospital %s of %s:\n> %s",
-        "success_continuation": "Type `n` to display the next result or `q` to end.",
-        "not_found_callback": "I am sorry, I have no information on the country: %s",
-        "error_callback": "There is an issue with the data source. You will have to try again later :("
+        "success_callback": "Visualización de hospitales para %s. Hospital %s de %s:\n> %s",
+        "success_continuation": "Escriba 'n' para mostrar el siguiente resultado o 'q' para finalizar:",
+        "not_found_callback": "Lo siento, no tengo información del país: %s",
+        "error_callback": "Hay un problema con la fuente de datos. Tendrá que volver a intentarlo más tarde :("
       }
     }
   ]
