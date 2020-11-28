@@ -8,6 +8,12 @@ Find the project report [here](./docs/fvilchez.pdf)
 ## Project Slides
 Find the slides [here](https://docs.google.com/presentation/d/1evYVFMQyg-YX8XPEZF_AAR6oWqE7YpMreFF_qm9s6xM/edit?usp=sharing)
 
+## Installation
+
+Create your [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) environment based on the `requirements.txt` file in the current repo with the following command:
+
+`conda create --name <env> --file requirements.txt`
+
 ## Chatbot Example for English - India
 
 ![](./docs/figures/India-EN-Chatbot.gif)
