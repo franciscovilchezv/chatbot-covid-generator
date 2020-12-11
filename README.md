@@ -10,9 +10,13 @@ Find the slides [here](https://docs.google.com/presentation/d/1evYVFMQyg-YX8XPEZ
 
 ## Installation
 
-Create your [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) environment based on the `requirements.txt` file in the current repo with the following command:
+Create your [conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/) environment based on the `spec-file.txt` file in the current repo with the following command:
 
-`conda create --name <env> --file requirements.txt`
+`conda create --name <env> --file spec-file.txt`
+
+Install packages from pip using the `requirements.txt` file
+
+`pip install -r requirements.txt`
 
 ## Chatbot Example for English - India
 
