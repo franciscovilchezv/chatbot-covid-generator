@@ -18,6 +18,10 @@ Install packages from pip using the `requirements.txt` file
 
 `pip install -r requirements.txt`
 
+## Known Errors
+
+For some reason, while running the Spanish chatbot, the translation API may fail in some occassions. Trying again a few more times will be enough to make it react again. You can comment line 37 & 38 in ./chatbot_generator/model/chatbot.py if the API is down and is stopping testing.
+
 ## Chatbot Example for English - India
 
 ![](./docs/figures/India-EN-Chatbot.gif)
@@ -25,7 +29,3 @@ Install packages from pip using the `requirements.txt` file
 ## Chatbot Example for Spanish - Peru
 
 ![](./docs/figures/Peru-ES-Chatbot.gif)
-
-## Known Errors
-
-For some reason, while running the Spanish chatbot, the translation API may fail in some occassions. Trying again a few more times will be enough to make it react again.
